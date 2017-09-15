@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Supplier</title>
+</head>
+<body>
+    <button><a href="/">Home</a></button>
+    <button><a href="/add">Tambah Supplier</a></button>
+    <table border ="1">
+        <tr>
+          <th>NAMA</th>
+          <th>KOTA</th>
+          <th>Option</th>
+        </tr>
+        <%data.forEach(z=>{%>
+        <tr>
+          <td><%=z.name%></td>
+          <td><%=z.kota%></td>
+          <td>
+            <a href="/supplier/edit/<%=z.id%>">EDIT</a> ||
+            <a href="/supplier/delete/<%=z.id%>">DELETE</a>
+          </td>
+        </tr>
+        <%})%>
+      </table>
+      <h2>Add New Supplier</h2>
+      <form action="/supplier" method="post">
+        <input type="text" name="name" value="" placeholder="Nama Supplier Baru">
+        <input type="text" name="kota" value="" placeholder="Kota Asal Supplier">
+        <button type="submit">Input</button>
+      </form>
+      <%if(err_msg){%>
+        <p><%=err_msg%></p>
+      <%}%>
+</body>
+</html>
