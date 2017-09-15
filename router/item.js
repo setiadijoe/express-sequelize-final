@@ -2,39 +2,40 @@ const express = require('express');
 const router  = express.Router();
 const models = require('../models');
 
-// Menampilkan data para supplier
+// Menampilkan data para Item
 router.get('/', (req, res)=>{
-    models.Supplier.findAll({
+    models.Item.findAll({
         order:[['id','ASC']]
     }).then(rows=>{
-      res.render('supplier', {data:rows, err_msg:false})
+      res.render('item', {data:rows, err_msg:false})
     })
     .catch(err=>{
       throw err.toString()
     })
   })
 
-// Menampilkan form tambah supplier
+// Menampilkan form tambah Item
 
 router.get('/add', (req, res)=>{
-    models.Supplier.findAll()
+    models.Item.findAll()
     .then(()=>{
-      res.render('addsupplier')
+      res.render('additem')
     })
     .catch(err=>{
       throw err.toString()
     })
   })
 
-//  Menambahkan Supplier
+//  Menambahkan Item
   router.post('/add', (req, res)=>{
 
-    models.Supplier.create({
+    models.Item.create({
                         name:`${req.body.name}`,
-                        kota: `${req.body.kota}`
+                        brand: `${req.body.brand}`,
+                        codeitem: `${req.body.codeitem}`
                       })
     .then(()=>{
-        res.redirect('/supplier')
+        res.redirect('/item')
     })
     .catch(err=>{
         throw err
@@ -42,31 +43,31 @@ router.get('/add', (req, res)=>{
     
 })
 
-// DELETE Supplier
+// DELETE Item
 router.get('/delete/:id', (req, res)=>{
-    models.Supplier.destroy({
+    models.Item.destroy({
         where:{
             id: req.params.id
         }
     })
     .then(()=>{
-        res.redirect('/supplier')
+        res.redirect('/item')
     })
     .catch(err=>{
         res.send(err)
     })
 })
 
-// EDIT Supplier
+// EDIT Item
 router.get('/edit/:id', (req, res)=> {
-    models.Supplier.findAll({
+    models.Item.findAll({
         where : {
             id : req.params.id
         }
     })
     .then(rows =>{
         // res.send(rows)
-        res.render('editsupplier', {data: rows})
+        res.render('edititem', {data: rows})
     }) 
     .catch(err =>{
         res.send(err)
@@ -74,16 +75,17 @@ router.get('/edit/:id', (req, res)=> {
 })
 
 router.post('/edit/:id', (req, res)=>{
-    models.Supplier.update({
+    models.Item.update({
         name:`${req.body.name}`, 
-        kota:`${req.body.kota}`
+        brand:`${req.body.brand}`,
+        codeitem:`${req.body.codeitem}`
     },{
         where:{
             id : req.params.id
         }
     })
     .then(()=>{
-        res.redirect('/supplier')
+        res.redirect('/item')
     })
     .catch(err=>{
         res.send(err)

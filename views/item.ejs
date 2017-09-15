@@ -4,25 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Supplier</title>
+    <title>Item</title>
 </head>
 <body>
-    <h2>List Supplier</h2>
+    <h2>List Item</h2>
     <a href="/"><button>Home</button></a>
-    <a href="/supplier/add"><button>Tambah Supplier</button></a>
+    <a href="/item/add"><button>Tambah Item</button> </a>
     <table border ="1">
         <tr>
-          <th>NAMA</th>
-          <th>KOTA</th>
+          <th>Nama Item</th>
+          <th>Brand</th>
+          <th>Code Item</th>
           <th>Option</th>
         </tr>
         <%data.forEach(z=>{%>
         <tr>
           <td><%=z.name%></td>
-          <td><%=z.kota%></td>
+          <td><%=z.brand%></td>
+          <td><%=z.codeitem%></td>
           <td>
-            <a href="/supplier/edit/<%=z.id%>">EDIT</a> ||
-            <a href="/supplier/delete/<%=z.id%>">DELETE</a>
+            <a href="/item/edit/<%=z.id%>">EDIT</a> ||
+            <a href="/item/delete/<%=z.id%>">DELETE</a>
           </td>
         </tr>
         <%})%>
