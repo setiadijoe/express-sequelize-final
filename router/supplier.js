@@ -5,6 +5,7 @@ const models = require('../models');
 // Menampilkan data para supplier
 router.get('/', (req, res)=>{
     models.Supplier.findAll({
+        include:[{model: models.Item}],
         order:[['id','ASC']]
     }).then(rows=>{
       res.render('supplier', {data:rows, err_msg:false})

@@ -14,12 +14,24 @@
         <tr>
           <th>NAMA</th>
           <th>KOTA</th>
+          <th>List Item</th>
+          <th>Add Item</th>
           <th>Option</th>
         </tr>
         <%data.forEach(z=>{%>
         <tr>
           <td><%=z.name%></td>
           <td><%=z.kota%></td>
+          <td><%if (z.Items.length>0) {%>
+            <% z.Items.forEach((item) => { %>
+                <%= '+ ' + item.name + ' ' + item.brand%>
+                <br></br>
+              <% }) %>
+              <% } else { %>
+                No item yet
+            <% } %>
+          </td>
+          <td><a href="/supplier/add/<%=z.id%>"><button>Assign Item</button></a></td>
           <td>
             <a href="/supplier/edit/<%=z.id%>">EDIT</a> ||
             <a href="/supplier/delete/<%=z.id%>">DELETE</a>
