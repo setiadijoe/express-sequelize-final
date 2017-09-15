@@ -7,8 +7,9 @@
     <title>Supplier</title>
 </head>
 <body>
+    <h2>List Supplier</h2>
     <button><a href="/">Home</a></button>
-    <button><a href="/add">Tambah Supplier</a></button>
+    <a href="/supplier/add">Tambah Supplier</a>
     <table border ="1">
         <tr>
           <th>NAMA</th>
@@ -26,12 +27,7 @@
         </tr>
         <%})%>
       </table>
-      <h2>Add New Supplier</h2>
-      <form action="/supplier" method="post">
-        <input type="text" name="name" value="" placeholder="Nama Supplier Baru">
-        <input type="text" name="kota" value="" placeholder="Kota Asal Supplier">
-        <button type="submit">Input</button>
-      </form>
+
       <%if(err_msg){%>
         <p><%=err_msg%></p>
       <%}%>

@@ -14,72 +14,80 @@ router.get('/', (req, res)=>{
     })
   })
 
+// Menampilkan form tambah supplier
 
-//   ADD Table
-//   router.post('/', (req, res)=>{
+router.get('/add', (req, res)=>{
+    models.Supplier.findAll()
+    .then(()=>{
+      res.render('addsupplier')
+    })
+    .catch(err=>{
+      throw err.toString()
+    })
+  })
 
-//     models.SeatingTable.create({
-//                         tableName:`${req.body.tableName}`,
-//                         capasity: req.body.capasity
-//                       })
-//     .then(()=>{
-//         res.redirect('/admin/seatingTable')
-//     })
-//     .catch(err=>{
-//         models.SeatingTable.findAll({
-//             order:[['id','ASC']]
-//         }).then(bla=>{
-//           res.render('seatingTable',{data:bla,err_msg:err.errors[0].message,pageTitle: 'Restaurant Magic'})
-//         })
-//     })
+//  Menambahkan Supplier
+  router.post('/add', (req, res)=>{
+
+    models.Supplier.create({
+                        name:`${req.body.name}`,
+                        kota: `${req.body.kota}`
+                      })
+    .then(()=>{
+        res.redirect('/supplier')
+    })
+    .catch(err=>{
+        throw err
+    })
     
-// })
+})
 
-// // DELETE Table
-// router.get('/delete/:id', (req, res)=>{
-//     models.SeatingTable.destroy({
-//         where:{
-//             id: req.params.id
-//         }
-//     })
-//     .then(()=>{
-//         res.redirect('/admin/seatingTable')
-//     })
-//     .catch(err=>{
-//         res.send(err)
-//     })
-// })
+// DELETE Supplier
+router.get('/delete/:id', (req, res)=>{
+    models.Supplier.destroy({
+        where:{
+            id: req.params.id
+        }
+    })
+    .then(()=>{
+        res.redirect('/supplier')
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+})
 
-// // EDIT Table
-// router.get('/edit/:id', (req, res)=> {
-//     models.SeatingTable.findAll({
-//         where : {
-//             id : req.params.id
-//         }
-//     })
-//     .then(rows =>{
-//         res.render('seatingTable-edit', {data:rows[0],pageTitle: 'Restaurant Magic'})
-//     }) 
-//     .catch(err =>{
-//         res.send(err)
-//     })
-// })
+// EDIT Table
+router.get('/edit/:id', (req, res)=> {
+    models.Supplier.findAll({
+        where : {
+            id : req.params.id
+        }
+    })
+    .then(rows =>{
+        // res.send(rows)
+        res.render('editsupplier', {data: rows})
+    }) 
+    .catch(err =>{
+        res.send(err)
+    })
+})
 
-// router.post('/edit/:id', (req, res)=>{
-//     models.SeatingTable.update({
-//         tableName:`${req.body.tableName}`, 
-//         capasity:`${req.body.capasity}`
-//     },{
-//         where:{
-//             id : req.params.id
-//         }
-//     })
-//     .then((r)=>{
-//         res.redirect('/admin/seatingTable')
-//     })
-//     .catch(err=>{
-//         res.send(err)
-//     })
-// })
+router.post('/edit/:id', (req, res)=>{
+    models.Supplier.update({
+        name:`${req.body.name}`, 
+        kota:`${req.body.kota}`
+    },{
+        where:{
+            id : req.params.id
+        }
+    })
+    .then(()=>{
+        res.redirect('/supplier')
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+})
 
 module.exports = router;
